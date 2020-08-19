@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Scientific Calculator";
+    ViewBag.Text = "Working";
+}
+
+@model Calculator.Models.CalculationModel
+<body onload="cleanFunction()">
+    <div>
+        <h1>@ViewData["Title"]</h1>
+        @using (Html.BeginForm("Calculate", "ScientificCalculator", FormMethod.Post))
+        {
+            <p>Please select your operation:</p>
+            <input type="radio" id="base10Logarithm" name="operation" value="base10Logarithm" required>
+            <label for="base10Logarithm">Base 10 logarithm</label><br>
+            <input type="radio" id="squareRoot" name="operation" value="squareRoot">
+            <label for="squareRoot">Square root</label><br>
+            <input type="radio" id="sine" name="operation" value="sine">
+            <label for="sine">Sine</label><br>
+            <input type="radio" id="cosine" name="operation" value="cosine">
+            <label for="cosine">Cosine</label><br>
+            <input type="radio" id="tangent" name="operation" value="tangent">
+            <label for="tangent">Tangent</label><br>
+
+            <p>Number: </p>
+            @Html.TextBoxFor(m => m.FirstNumber, new { required = "required", pattern = @"^[0-9]\d*(\,\d+)?$" });
+            <br /><br />
+            <input type="submit" value="Submit" />
+        }
+
+        @if (ViewBag.Message != null)
+        {
+            <br />
+            <p>Result: @ViewBag.Message</p>
+        }
+    </div>
+
+    <script>
+        function cleanFunction() {
+            document.getElementById('FirstNumber').value = '';
+        };
+    </script>
+</body>

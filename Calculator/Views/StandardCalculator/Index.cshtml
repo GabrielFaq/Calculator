@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Standard Calculator";
+    ViewBag.Text = "Working";
+}
+
+@model Calculator.Models.CalculationModel
+<body onload="cleanFunction()">
+    <div>
+        <h1>@ViewData["Title"]</h1>
+        @using (Html.BeginForm("Calculate", "StandardCalculator", FormMethod.Post))
+        {
+            <p>Please select your operation:</p>
+            <input type="radio" id="addition" name="operation" value="addition" required>
+            <label for="addition">Addition</label><br>
+            <input type="radio" id="subtraction" name="operation" value="subtraction">
+            <label for="subtraction">Subtraction</label><br>
+            <input type="radio" id="division" name="operation" value="division">
+            <label for="division">Division</label><br>
+            <input type="radio" id="multiplication" name="operation" value="multiplication">
+            <label for="multiplication">Multiplication</label><br>
+
+            <p>First number: </p>
+            @Html.TextBoxFor(m => m.FirstNumber, new { required = "required", pattern = @"^[0-9]\d*(\,\d+)?$" });
+            <br />
+            <p>Second number: </p>
+            @Html.TextBoxFor(m => m.SecondNumber, new { required = "required", pattern = @"^[0-9]\d*(\,\d+)?$" });
+            <br /><br />
+            <input type="submit" value="Submit" />
+        }
+
+        @if (ViewBag.Message != null)
+        {
+            <br />
+            <p>Result: @ViewBag.Message</p>
+        }
+    </div>
+
+    <script>
+        function cleanFunction() {
+            document.getElementById('FirstNumber').value = '';
+            document.getElementById('SecondNumber').value = '';
+        };
+    </script>
+</body>
